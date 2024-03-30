@@ -2,6 +2,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut } from "firebase/auth";
 import { auth } from "../Firebase";
+import Loading from "../components/Loading";
 
 const AuthContext = createContext();
 
@@ -14,7 +15,6 @@ const [loading,setLoading] = useState(true)
 
 // signin with google
 const signinWithGoogle = ()=>{
-
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
     
@@ -53,11 +53,15 @@ useEffect(() => {
 return(
     <AuthContext.Provider value={value}>
         {!loading && children}
+        {loading && <Loading/>}
     </AuthContext.Provider>
 )
 
 
 }
+
+
+
 
 export const UserAuth = () =>{
     return useContext(AuthContext)

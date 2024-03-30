@@ -19,7 +19,10 @@ const Message = ({message}) => {
         <div className="chat-header">
           {message.name}
         </div>
+        <div>
         <div className="chat-bubble">{message.text}</div>
+        <p className="text-sm text-gray-400 ml-1 mt-1">{message.Msgtime}</p>
+        </div>
       </div>
     </div>
   )

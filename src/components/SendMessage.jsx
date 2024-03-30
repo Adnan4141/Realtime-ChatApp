@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserAuth } from "../context/AuthContex";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../Firebase";
+ 
+
+
+
 
 const SendMessage = () => {
   const [value, setValue] = useState("");
   const { currentUser } = UserAuth();
+  const [time,setTime] = useState(null);
+
+  useEffect(() => {
+ 
+  }, [])
+  
 
   const handleSendMessage = async (e) => {
+    
     e.preventDefault();
-
+    const date = new Date();
+    const min = date.getMinutes();
+    const hours = date.getHours();
+    const timeCal= hours +":"+ min;
+    console.log(time)
+    setTime(timeCal)
+    
+    
     if(value.trim() === "") {
       alert("Enter valid message!");
       return;
@@ -23,7 +41,9 @@ const SendMessage = () => {
         name: displayName,
         avatar: photoURL,
         createdAt: serverTimestamp(),
+        Msgtime: time,
         uid,
+       
       });
     } catch (error) {
       console.log(error);
